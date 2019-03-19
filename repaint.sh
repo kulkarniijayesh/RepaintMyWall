@@ -1,11 +1,11 @@
 #!/bin/bash
 echo "------Repaint My Wall------"
 echo "--Author: Jayesh Kulkarni--"
-tempDir=/tmp/repaint
+tempDir=/home/$( whoami )/repaint
 cnt=$(find $tempDir 2> /dev/null | wc -l)
 if [ $cnt -eq 0 ] 
 then
-	mkdir /tmp/repaint
+	mkdir $tempDir
 fi
 
 function getNextWallpaper {
@@ -16,7 +16,7 @@ function getNextWallpaper {
 	then
 		wget -O  ${tempDir}/newWall.jpg $link > /dev/null
 		echo "API call completed successfully!"
-		gsettings set org.gnome.desktop.background picture-uri  'file:/tmp/repaint/newWall.jpg'
+		gsettings set org.gnome.desktop.background picture-uri  'file:'${tempDir}'/newWall.jpg'
 	else
 		echo "Error while attempting API call!"
 	fi
